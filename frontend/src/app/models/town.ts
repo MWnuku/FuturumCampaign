@@ -1,0 +1,15 @@
+export enum Town {
+  Krakow = 'Krakow',
+  Warszawa = 'Warszawa',
+  Poznan = 'Poznan',
+  Wroclaw = 'Wroclaw',
+  Gdansk = 'Gdansk',
+  Bydgoszcz = 'Bydgoszcz',
+  Tarnow = 'Tarnow',
+  Opole = 'Opole',
+  Katowice = 'Katowice',
+  Lublin = 'Lublin',
+  Lodz = 'Lodz',
+  Szczecin = 'Szczecin',
+  Bialystok = 'Bialystok',
+} 

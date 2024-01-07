@@ -10,6 +10,7 @@ import lombok.Setter;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "campaign")
@@ -25,8 +26,10 @@ public class Campaign {
 	@Column(nullable = false)
 	private String name;
 	@ManyToMany(cascade = CascadeType.PERSIST)
-	@Column(nullable = false)
-	private List<Tag> tags;
+	@JoinTable(name = "campaign_tag",
+			joinColumns = @JoinColumn(name = "campaign_id"),
+			inverseJoinColumns = @JoinColumn(name = "tag_id"))
+	private Set<Tag> tags;
 	@Column(nullable = false)
 	private Double bidAmount;
 	@Column(nullable = false)
@@ -39,7 +42,7 @@ public class Campaign {
 	@JoinColumn()
 	private Seller seller;
 
-	public Campaign(String name, List<Tag> tags, Double bidAmount, Status status, Town town, Double radius, Seller seller) {
+	public Campaign(String name, Set<Tag> tags, Double bidAmount, Status status, Town town, Double radius, Seller seller) {
 		this.name = name;
 		this.tags = tags;
 		this.bidAmount = bidAmount;

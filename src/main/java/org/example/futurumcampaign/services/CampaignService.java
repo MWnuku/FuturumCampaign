@@ -9,9 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
@@ -31,6 +29,16 @@ public class CampaignService {
 
 		Seller seller = campaign.getSeller();
 		updateSellerForCampaign(seller, campaign);
+
+		try {
+			Set<Tag> uniqueTags = new HashSet<>();
+			for(Tag tag : campaign.getTags()) {
+				uniqueTags.add(tagService.addTag(tag));
+			}
+			campaign.setTags(uniqueTags);
+		} catch(ResponseStatusException e){
+			throw new ResponseStatusException(e.getStatusCode(), e.getMessage());
+		}
 
 		return campaignRepository.save(campaign);
 	}
@@ -80,7 +88,7 @@ public class CampaignService {
 				existingCampaign.setTown(newCampaign.getTown());
 				existingCampaign.setBidAmount(newCampaign.getBidAmount());
 
-				List<Tag> tags = new ArrayList<>();
+				Set<Tag> tags = new HashSet<>();
 				for(Tag tag : newCampaign.getTags()) {
 					tags.add(tagService.findByKeyword(tag.getKeyword()));
 				}

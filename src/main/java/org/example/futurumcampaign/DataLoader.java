@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -42,8 +43,8 @@ public class DataLoader implements CommandLineRunner {
 		Tag[] tags = {tagService.findByKeyword(KeywordEnum.PCs), tagService.findByKeyword(KeywordEnum.Electronics)};
 		Tag[] tags2 = {tagService.findByKeyword(KeywordEnum.SmartWatches)};
 
-		Campaign campaign = new Campaign("Nazwa", new ArrayList<Tag>(Arrays.asList(tags)), 100000., Status.On, Town.Katowice, 10000., seller);
-		Campaign campaign2 = new Campaign("FuturumCampaign", new ArrayList<Tag>(Arrays.asList(tags2)), 155000., Status.Off, Town.Krakow, 100., seller2);
+		Campaign campaign = new Campaign("Nazwa", new HashSet<>(Arrays.asList(tags)), 100000., Status.On, Town.Katowice, 10000., seller);
+		Campaign campaign2 = new Campaign("FuturumCampaign", new HashSet<>(Arrays.asList(tags2)), 155000., Status.Off, Town.Krakow, 100., seller2);
 
 		campaignController.addCampaign(campaign);
 		campaignController.addCampaign(campaign2);

@@ -48,7 +48,7 @@ public class SellerService {
 		}
 	}
 
-	public Seller updateSellerById(Long id, Seller newSeller) throws ResponseStatusException{
+	public Seller updateSellerById(Long id, Seller newSeller) throws ResponseStatusException {
 		return updateSellerFields(id, newSeller);
 	}
 

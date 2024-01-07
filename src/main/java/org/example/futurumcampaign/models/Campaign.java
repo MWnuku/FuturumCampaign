@@ -35,7 +35,7 @@ public class Campaign {
 	private Town town;
 	@Column(nullable = false)
 	private Double radius;
-	@ManyToOne(optional = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn()
 	private Seller seller;
 

@@ -25,7 +25,7 @@ public class Campaign{
 	private Long id;
 	@Column(nullable = false)
 	private String name;
-	@OneToMany(cascade = CascadeType.PERSIST)
+	@ManyToMany(cascade = CascadeType.PERSIST)
 	@Column(nullable = false)
 	private List<Tag> tags;
 	@Column(nullable = false)
@@ -37,7 +37,6 @@ public class Campaign{
 	@Column(nullable = false)
 	private Double radius;
 	@ManyToOne(optional = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JsonIdentityReference(alwaysAsId = true)
 	private Seller seller;
 
 	public Campaign(String name, List<Tag> tags, Double bidAmount, Status status, Town town, Double radius, Seller seller){

@@ -10,7 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@CrossOrigin()
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/campaign")
 public class CampaignController{
 	private final CampaignService campaignService;
@@ -58,12 +58,10 @@ public class CampaignController{
 	@PatchMapping("/{id}")
 	public ResponseEntity<Campaign> updateCampaignById(@PathVariable("id") Long id, @RequestBody Campaign campaign){
 		try{
-			Campaign campaign1 = campaignService.updateCampaignById(id, campaign);
-			return new ResponseEntity<>(campaign1, HttpStatus.OK);
+			Campaign existingCampaign  = campaignService.updateCampaignById(id, campaign);
+			return new ResponseEntity<>(existingCampaign , HttpStatus.OK);
 		} catch(ResponseStatusException e){
 			return new ResponseEntity<>(e.getStatusCode());
-		} catch(Exception e){
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

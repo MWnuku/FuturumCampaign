@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SellerRepository extends JpaRepository<Seller, Long>{
 	boolean existsByNameAndLastNameAndCompanyName(String name, String lastName, String companyName);
+	Seller findSellerByNameAndLastNameAndCompanyName(String name, String lastName, String companyName);
 }

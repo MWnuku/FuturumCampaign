@@ -16,7 +16,6 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Seller{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,13 +28,12 @@ public class Seller{
 	@Column(nullable = false)
 	private String lastName;
 	@Column
-	private Long balance;
+	private Double balance;
 	@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JsonIdentityReference(alwaysAsId = true)
 	private List<Campaign> campaigns;
 
-	public Seller(Long id, String companyName, String name, String lastName, Long balance, List<Campaign> campaigns){
-		this.id = id;
+	public Seller(String companyName, String name, String lastName, Double balance, List<Campaign> campaigns){
 		this.companyName = companyName;
 		this.name = name;
 		this.lastName = lastName;

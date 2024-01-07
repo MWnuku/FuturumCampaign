@@ -89,4 +89,14 @@ public class SellerService{
 	public Seller findByNameAndLastNameAndCompanyName(String name, String lastName, String companyName){
 		return sellerRepository.findSellerByNameAndLastNameAndCompanyName(name, lastName, companyName);
 	}
+
+	public Seller updateBalance(Seller seller, Double bidAmount){
+		Double balance = seller.getBalance();
+		if(balance < bidAmount)
+			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "The seller's balance is too small.");
+		else{
+			seller.setBalance(balance - bidAmount);
+			return sellerRepository.save(seller);
+		}
+	}
 }

@@ -33,11 +33,13 @@ public class CampaignService{
 
 		if(!sellerService.existsByNameAndLastNameAndCompanyName(campaign.getSeller().getName(), campaign.getSeller().getLastName(), campaign.getSeller().getCompanyName())){
 			Seller seller = sellerService.addSeller(campaign.getSeller());
-			campaign.setSeller(seller);
+			Seller sellerUpdated = sellerService.updateBalance(seller, campaign.getBidAmount());
+			campaign.setSeller(sellerUpdated);
 		}
 		else{
 			Seller seller = sellerService.findByNameAndLastNameAndCompanyName(campaign.getSeller().getName(), campaign.getSeller().getLastName(), campaign.getSeller().getCompanyName());
-			campaign.setSeller(seller);
+			Seller sellerUpdated = sellerService.updateBalance(seller, campaign.getBidAmount());
+			campaign.setSeller(sellerUpdated);
 		}
 
 		return campaignRepository.save(campaign);

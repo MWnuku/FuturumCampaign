@@ -2,7 +2,6 @@ package org.example.futurumcampaign.models;
 
 import java.util.HashMap;
 
-
 public class Trie {
 
 	private final TrieNode root;
@@ -47,10 +46,11 @@ public class Trie {
 		return node != null && node.isLeaf();
 	}
 
-	public void addAllKeywords(){
-		for(KeywordEnum keyword : KeywordEnum.values()){
-			if(!this.search(keyword.toString()))
+	public void addAllKeywords() {
+		for(KeywordEnum keyword : KeywordEnum.values()) {
+			if(!this.search(keyword.toString())) {
 				this.insert(keyword.toString());
+			}
 		}
 	}
 }

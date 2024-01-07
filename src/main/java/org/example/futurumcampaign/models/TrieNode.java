@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.HashMap;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,8 +15,7 @@ public class TrieNode {
 	private HashMap<Character, TrieNode> children = new HashMap<>();
 	private boolean isLeaf;
 
-
-	public TrieNode(char c){
+	public TrieNode(char c) {
 		this.c = c;
 	}
 

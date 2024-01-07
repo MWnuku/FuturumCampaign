@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Tag{
+public class Tag {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Setter(AccessLevel.NONE)
@@ -19,7 +19,7 @@ public class Tag{
 	@Column(nullable = false)
 	private KeywordEnum keyword;
 
-	public Tag(KeywordEnum keywordEnum){
+	public Tag(KeywordEnum keywordEnum) {
 		this.keyword = keywordEnum;
 	}
 }

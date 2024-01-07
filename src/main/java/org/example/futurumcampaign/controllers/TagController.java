@@ -13,33 +13,33 @@ import java.util.List;
 @RestController
 @RequestMapping("/tag")
 @Transactional
-public class TagController{
+public class TagController {
 	private final TagService tagService;
 
-	public TagController(TagService tagService){
+	public TagController(TagService tagService) {
 		this.tagService = tagService;
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Tag>> getAll(){
-		try{
+	public ResponseEntity<List<Tag>> getAll() {
+		try {
 			List<Tag> tags = tagService.getAll();
 			return new ResponseEntity<>(tags, HttpStatus.OK);
-		} catch(ResponseStatusException e){
+		} catch(ResponseStatusException e) {
 			return new ResponseEntity<>(e.getStatusCode());
-		} catch(Exception e){
+		} catch(Exception ex) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@PostMapping("")
-	public ResponseEntity<Tag> addTag(@RequestBody Tag tag){
-		try{
-			Tag tag1 = tagService.addTag(tag);
-			return new ResponseEntity<>(tag1, HttpStatus.OK);
-		}catch(ResponseStatusException e){
+	public ResponseEntity<Tag> addTag(@RequestBody Tag tag) {
+		try {
+			Tag newTag = tagService.addTag(tag);
+			return new ResponseEntity<>(newTag, HttpStatus.OK);
+		} catch(ResponseStatusException e) {
 			return new ResponseEntity<>(e.getStatusCode());
-		} catch(Exception e){
+		} catch(Exception ex) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

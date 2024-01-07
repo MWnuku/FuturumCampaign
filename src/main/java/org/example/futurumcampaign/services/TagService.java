@@ -13,33 +13,32 @@ import java.util.List;
 
 @Service
 @Transactional
-public class TagService{
+public class TagService {
 	private final TagRespository tagRespository;
 
-	public TagService(TagRespository tagRespository){
+	public TagService(TagRespository tagRespository) {
 		this.tagRespository = tagRespository;
 	}
 
-	public List<Tag> getAll() throws ResponseStatusException{
+	public List<Tag> getAll() throws ResponseStatusException {
 		List<Tag> tags = new ArrayList<>(tagRespository.findAll());
 
-		if(tags.isEmpty())
+		if(tags.isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT);
-		else {
+		} else {
 			return tags;
 		}
 	}
 
-	public Tag addTag(Tag tag){
-		if (!tagRespository.existsByKeyword(tag.getKeyword())) {
+	public Tag addTag(Tag tag) {
+		if(!tagRespository.existsByKeyword(tag.getKeyword())) {
 			return tagRespository.save(tag);
-		}
-		else{
+		} else {
 			return tagRespository.findByKeyword(tag.getKeyword());
 		}
 	}
 
-	public Tag findByKeyword(KeywordEnum keywordEnum){
+	public Tag findByKeyword(KeywordEnum keywordEnum) {
 		return tagRespository.findByKeyword(keywordEnum);
 	}
 }

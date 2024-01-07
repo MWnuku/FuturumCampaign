@@ -17,7 +17,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Seller{
+public class Seller {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Setter(AccessLevel.NONE)
@@ -34,7 +34,7 @@ public class Seller{
 	@JsonIdentityReference(alwaysAsId = true)
 	private List<Campaign> campaigns;
 
-	public Seller(String companyName, String name, String lastName, Double balance, List<Campaign> campaigns){
+	public Seller(String companyName, String name, String lastName, Double balance, List<Campaign> campaigns) {
 		this.companyName = companyName;
 		this.name = name;
 		this.lastName = lastName;

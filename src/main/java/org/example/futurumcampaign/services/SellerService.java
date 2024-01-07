@@ -13,47 +13,48 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class SellerService{
+public class SellerService {
 	private final SellerRepository sellerRepository;
 
-	public SellerService(SellerRepository sellerRepository){
+	public SellerService(SellerRepository sellerRepository) {
 		this.sellerRepository = sellerRepository;
 	}
 
-	public Seller addSeller(Seller seller){
-		if(sellerRepository.existsByNameAndLastNameAndCompanyName(seller.getName(), seller.getLastName(), seller.getCompanyName()))
+	public Seller addSeller(Seller seller) {
+		if(sellerRepository.existsByNameAndLastNameAndCompanyName(seller.getName(), seller.getLastName(), seller.getCompanyName())) {
 			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "There is already a seller with this data.");
+		}
 
 		return sellerRepository.save(seller);
 	}
 
-	public List<Seller> getAll(){
-		List<Seller> sellers = new ArrayList<>();
-		sellers.addAll(sellerRepository.findAll());
+	public List<Seller> getAll() {
+		List<Seller> sellers = new ArrayList<>(sellerRepository.findAll());
 
-		if(!sellers.isEmpty()){
+		if(!sellers.isEmpty()) {
 			return sellers;
-		}
-		else {
+		} else {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT);
 		}
 	}
 
-	public Seller getSellerById(Long id){
+	public Seller getSellerById(Long id) {
 		Optional<Seller> seller = sellerRepository.findById(id);
 
-		if(seller.isPresent()){
+		if(seller.isPresent()) {
 			return seller.get();
-		}
-		else {
+		} else {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
 	}
 
-	public Seller updateSellerById(Long id, Seller newSeller){
-		Optional<Seller> optionalSeller = sellerRepository.findById(id);
+	public Seller updateSellerById(Long id, Seller newSeller) throws ResponseStatusException{
+		return updateSellerFields(id, newSeller);
+	}
 
-		if(optionalSeller.isPresent()){
+	private Seller updateSellerFields(Long id, Seller newSeller) {
+		Optional<Seller> optionalSeller = sellerRepository.findById(id);
+		if(optionalSeller.isPresent()) {
 			Seller oldSeller = optionalSeller.get();
 
 			oldSeller.setBalance(newSeller.getBalance());
@@ -63,40 +64,28 @@ public class SellerService{
 			oldSeller.setCompanyName(newSeller.getCompanyName());
 
 			return sellerRepository.save(oldSeller);
-		}
-		else {
+		} else {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
 	}
 
-	public void deleteSellerById(Long id){
-		if(sellerRepository.existsById(id)){
+	public void deleteSellerById(Long id) {
+		if(sellerRepository.existsById(id)) {
 			sellerRepository.deleteById(id);
-		}
-		else {
+		} else {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "There is no seller with this id.");
 		}
 	}
 
-	public boolean existsById(Long id){
+	public boolean existsById(Long id) {
 		return sellerRepository.existsById(id);
 	}
 
-	public boolean existsByNameAndLastNameAndCompanyName(String name, String lastName, String companyName){
+	public boolean existsByNameAndLastNameAndCompanyName(String name, String lastName, String companyName) {
 		return sellerRepository.existsByNameAndLastNameAndCompanyName(name, lastName, companyName);
 	}
 
-	public Seller findByNameAndLastNameAndCompanyName(String name, String lastName, String companyName){
+	public Seller findByNameAndLastNameAndCompanyName(String name, String lastName, String companyName) {
 		return sellerRepository.findSellerByNameAndLastNameAndCompanyName(name, lastName, companyName);
-	}
-
-	public Seller updateBalance(Seller seller, Double bidAmount){
-		Double balance = seller.getBalance();
-		if(balance < bidAmount)
-			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "The seller's balance is too small.");
-		else{
-			seller.setBalance(balance - bidAmount);
-			return sellerRepository.save(seller);
-		}
 	}
 }

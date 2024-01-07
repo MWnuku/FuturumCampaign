@@ -1,7 +1,6 @@
 package org.example.futurumcampaign.models;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -18,7 +17,7 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Campaign{
+public class Campaign {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Setter(AccessLevel.NONE)
@@ -40,7 +39,7 @@ public class Campaign{
 	@JoinColumn()
 	private Seller seller;
 
-	public Campaign(String name, List<Tag> tags, Double bidAmount, Status status, Town town, Double radius, Seller seller){
+	public Campaign(String name, List<Tag> tags, Double bidAmount, Status status, Town town, Double radius, Seller seller) {
 		this.name = name;
 		this.tags = tags;
 		this.bidAmount = bidAmount;
@@ -51,17 +50,19 @@ public class Campaign{
 	}
 
 	@Override
-	public boolean equals(Object o){
-		if(this == o)
+	public boolean equals(Object o) {
+		if(this == o) {
 			return true;
-		if(o == null || getClass() != o.getClass())
+		}
+		if(o == null || getClass() != o.getClass()) {
 			return false;
+		}
 		Campaign campaign = (Campaign) o;
 		return Objects.equals(id, campaign.id);
 	}
 
 	@Override
-	public int hashCode(){
+	public int hashCode() {
 		return Objects.hash(id);
 	}
 }

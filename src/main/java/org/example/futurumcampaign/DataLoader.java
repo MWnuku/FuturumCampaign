@@ -13,13 +13,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 @Component
-public class DataLoader implements CommandLineRunner{
+public class DataLoader implements CommandLineRunner {
 	private final CampaignController campaignController;
 	private final SellerController sellerController;
 	private final TagController tagController;
 	private final TagService tagService;
 
-	public DataLoader(CampaignController campaignController, SellerController sellerController, TagController tagController, TagService tagService){
+	public DataLoader(CampaignController campaignController, SellerController sellerController, TagController tagController, TagService tagService) {
 		this.campaignController = campaignController;
 		this.sellerController = sellerController;
 		this.tagController = tagController;
@@ -28,22 +28,22 @@ public class DataLoader implements CommandLineRunner{
 
 	@Override
 	@Transactional
-	public void run(String... args) throws Exception{
+	public void run(String... args) throws Exception {
 		Seller seller = new Seller("Company", "Imie", "Nazwisko", 100000000000., new ArrayList<>());
 		Seller seller2 = new Seller("Futurum", "Pracownik", "Marketingu", 2202000000000.50, new ArrayList<>());
 
 		sellerController.addSeller(seller);
 		sellerController.addSeller(seller2);
 
-		for(KeywordEnum keywordEnum : KeywordEnum.values()){
+		for(KeywordEnum keywordEnum : KeywordEnum.values()) {
 			tagController.addTag(new Tag(keywordEnum));
 		}
 
 		Tag[] tags = {tagService.findByKeyword(KeywordEnum.PCs), tagService.findByKeyword(KeywordEnum.Electronics)};
 		Tag[] tags2 = {tagService.findByKeyword(KeywordEnum.SmartWatches)};
 
-		Campaign campaign = new Campaign("Nazwa", new ArrayList<Tag>(Arrays.asList(tags)), 100000., Status.On, Town.Katowice,10000., seller);
-		Campaign campaign2 = new Campaign("FuturumCampaign", new ArrayList<Tag>(Arrays.asList(tags2)), 155000., Status.Off, Town.Krakow,100., seller2);
+		Campaign campaign = new Campaign("Nazwa", new ArrayList<Tag>(Arrays.asList(tags)), 100000., Status.On, Town.Katowice, 10000., seller);
+		Campaign campaign2 = new Campaign("FuturumCampaign", new ArrayList<Tag>(Arrays.asList(tags2)), 155000., Status.Off, Town.Krakow, 100., seller2);
 
 		campaignController.addCampaign(campaign);
 		campaignController.addCampaign(campaign2);

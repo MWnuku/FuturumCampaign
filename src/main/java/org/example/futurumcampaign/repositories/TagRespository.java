@@ -6,7 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TagRespository extends JpaRepository<Tag, Long>{
+public interface TagRespository extends JpaRepository<Tag, Long> {
 	boolean existsByKeyword(KeywordEnum keywordEnum);
+
 	Tag findByKeyword(KeywordEnum keywordEnum);
 }

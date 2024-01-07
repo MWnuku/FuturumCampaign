@@ -37,6 +37,7 @@ public class Campaign{
 	@Column(nullable = false)
 	private Double radius;
 	@ManyToOne(optional = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinColumn()
 	private Seller seller;
 
 	public Campaign(String name, List<Tag> tags, Double bidAmount, Status status, Town town, Double radius, Seller seller){

@@ -18,7 +18,7 @@ public class SellerController{
 		this.sellerService = sellerService;
 	}
 
-	@GetMapping("/getAll")
+	@GetMapping()
 	public ResponseEntity<List<Seller>> getAllSellers(){
 		try{
 			List<Seller> sellers = sellerService.getAll();
@@ -30,7 +30,7 @@ public class SellerController{
 		}
 	}
 
-	@GetMapping("get/{id}")
+	@GetMapping("{id}")
 	public ResponseEntity<Seller> getSellerById(@PathVariable("id") Long id){
 		try{
 			Seller seller = sellerService.getSellerById(id);
@@ -54,7 +54,7 @@ public class SellerController{
 		}
 	}
 
-	@PostMapping("/update/{id}")
+	@PostMapping("/{id}")
 	public ResponseEntity<Seller> updateSeller(@PathVariable("id") Long id, @RequestBody Seller seller){
 		try{
 			Seller sellerUpd = sellerService.updateSellerById(id, seller);
@@ -66,7 +66,7 @@ public class SellerController{
 		}
 	}
 
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteSellerById(@PathVariable("id") Long id){
 		try{
 			sellerService.deleteSellerById(id);

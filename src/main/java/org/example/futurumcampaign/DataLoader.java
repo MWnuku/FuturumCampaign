@@ -29,8 +29,8 @@ public class DataLoader implements CommandLineRunner{
 	@Override
 	@Transactional
 	public void run(String... args) throws Exception{
-		Seller seller = new Seller("Company", "Imie", "Nazwisko", 10000., new ArrayList<>());
-		Seller seller2 = new Seller("Futurum", "Pracownik", "Marketingu", 22020.50, new ArrayList<>());
+		Seller seller = new Seller("Company", "Imie", "Nazwisko", 100000000000., new ArrayList<>());
+		Seller seller2 = new Seller("Futurum", "Pracownik", "Marketingu", 2202000000000.50, new ArrayList<>());
 
 		sellerController.addSeller(seller);
 		sellerController.addSeller(seller2);

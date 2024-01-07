@@ -33,11 +33,23 @@ public class CampaignService{
 
 		if(!sellerService.existsByNameAndLastNameAndCompanyName(campaign.getSeller().getName(), campaign.getSeller().getLastName(), campaign.getSeller().getCompanyName())){
 			Seller seller = campaign.getSeller();
+			seller.getCampaigns().add(campaign);
+			Double balance = seller.getBalance();
+			balance -= campaign.getBidAmount();
+			if(balance < 0)
+				throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "The bid amount is unafordable.");
+			seller.setBalance(balance);
 			Seller addedSeller =  sellerService.addSeller(seller);
 			campaign.setSeller(addedSeller);
 		}
 		else{
 			Seller seller = sellerService.findByNameAndLastNameAndCompanyName(campaign.getSeller().getName(), campaign.getSeller().getLastName(), campaign.getSeller().getCompanyName());
+			seller.getCampaigns().add(campaign);
+			Double balance = seller.getBalance();
+			balance -= campaign.getBidAmount();
+			if(balance < 0)
+				throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "The bid amount is unafordable.");
+			seller.setBalance(balance);
 			campaign.setSeller(seller);
 		}
 

@@ -32,7 +32,7 @@ public class TagController{
 		}
 	}
 
-	@PostMapping("/add")
+	@PostMapping("")
 	public ResponseEntity<Tag> addTag(@RequestBody Tag tag){
 		try{
 			Tag tag1 = tagService.addTag(tag);

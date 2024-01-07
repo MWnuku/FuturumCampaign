@@ -36,13 +36,13 @@ public class CampaignService {
 	}
 
 	private void validateCampaignName(String name) {
-		if(campaignRepository.existsCampaignByName(name)) {
+		if (campaignRepository.existsCampaignByName(name)) {
 			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "There is already a campaign with this name.");
 		}
 	}
 
 	private void updateSellerForCampaign(Seller seller, Campaign campaign) {
-		if(!sellerService.existsByNameAndLastNameAndCompanyName(seller.getName(), seller.getLastName(), seller.getCompanyName())) {
+		if (!sellerService.existsByNameAndLastNameAndCompanyName(seller.getName(), seller.getLastName(), seller.getCompanyName())) {
 			Seller newSeller = sellerService.addSeller(seller);
 			addCampaignToExistingSeller(newSeller, campaign);
 		} else {
@@ -60,11 +60,12 @@ public class CampaignService {
 	private void updateSellerBalance(Seller seller, double bidAmount) {
 		double balance = seller.getBalance();
 		balance -= bidAmount;
-		if(balance < 0) {
+		if (balance < 0) {
 			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "The bid amount is unaffordable.");
 		}
 		seller.setBalance(balance);
 	}
+
 
 	public Campaign updateCampaignById(Long id, Campaign newCampaign) {
 		try {
